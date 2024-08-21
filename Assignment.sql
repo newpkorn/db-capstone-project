@@ -392,7 +392,50 @@ END //
 DELIMITER ;
 
 -- 2. Call the Procedure
-CALL CancelBooking(9);
+CALL CancelBooking(11);
+
+-- Create ManageBooking() Procedure
+DELIMITER //
+
+CREATE PROCEDURE ManageBooking(
+    IN p_BookingDate DATE,
+    IN p_TableNo INT,
+    IN p_CustomerID INT,
+    IN p_StaffID INT
+)
+BEGIN
+    INSERT INTO Bookings (BookingDate, TableNo, CustomerID, StaffID)
+    VALUES (p_BookingDate, p_TableNo, p_CustomerID, p_StaffID);
+END //
+
+DELIMITER ;
+
+CALL ManageBooking('2024-08-23', 10, 1, 4);
+
+
+-- Create UpdateBooking() Procedure
+DELIMITER //
+
+CREATE PROCEDURE UpdateBooking(
+    IN p_BookingID INT,
+    IN p_BookingDate DATE,
+    IN p_TableNo INT,
+    IN p_CustomerID INT,
+    IN p_StaffID INT
+)
+BEGIN
+    UPDATE Bookings
+    SET BookingDate = p_BookingDate,
+        TableNo = p_TableNo,
+        CustomerID = p_CustomerID,
+        StaffID = p_StaffID
+    WHERE BookingID = p_BookingID;
+END //
+
+DELIMITER ;
+
+CALL UpdateBooking(12, '2024-08-24', 5, 3, 5);
+
 
 
 
